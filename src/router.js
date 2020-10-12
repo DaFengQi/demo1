@@ -1,25 +1,43 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
+import Vue from "vue";
+import Router from "vue-router";
 
-Vue.use(Router)
+const Home = () => import("views/home/Home");
+const Category = () => import("views/category/Category");
+const Cart = () => import("views/shopcart/Cart");
+const Profile = () => import("views/profile/Profile");
+const Detail = () => import("views/detail/Detail");
 
+//1.安装插件
+Vue.use(Router);
+
+//2.创建导出插件
 export default new Router({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: "/",
+      redirect: "/home"
+    },
+    {
+      path: "/home",
       component: Home
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: "/category",
+      component: Category
+    },
+    {
+      path: "/shopcart",
+      component: Cart
+    },
+    {
+      path: "/profile",
+      component: Profile
+    },
+    {
+      path: "/detail/:iid",
+      component: Detail
     }
   ]
-})
+});
